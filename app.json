@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "MONSIEUR",
+    "owner": "dzinh-lang1901",
     "slug": "monsieur-by-aelier-groupe",
     "scheme": "monsieur",
     "version": "0.1.0",
@@ -12,7 +13,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#F6F1EA"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.aeliergroupe.monsieur",
@@ -43,6 +46,14 @@
           "enableGooglePay": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9043ecc0-e71c-46bc-83d5-a24f2d89ceb8"
+      }
+    }
   }
 }
