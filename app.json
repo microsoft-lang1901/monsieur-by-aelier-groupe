@@ -34,9 +34,6 @@
     "web": {
       "favicon": "./assets/icon.png"
     },
-    "experiments": {
-      "baseUrl": "/monsieur-by-aelier-groupe"
-    },
     "plugins": [
       "expo-router",
       [
