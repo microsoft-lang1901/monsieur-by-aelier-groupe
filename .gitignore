@@ -1,0 +1,9 @@
+node_modules/
+dist-web/
+.expo/
+.codex-remote-attachments/
+expo-web.out.log
+expo-web.err.log
+static-web.out.log
+static-web.err.log
+npm-debug.log*
