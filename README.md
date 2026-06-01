@@ -78,5 +78,6 @@ The repository includes:
 
 - `.github/workflows/verify.yml` for pull request and release checks.
 - `.github/workflows/deploy-web.yml` for GitHub Pages web deployment from `main`.
+- `.github/workflows/native-preview.yml` for manual EAS Android/iOS preview builds once `EXPO_TOKEN` is configured.
 
 After the repository is pushed to GitHub, enable Pages with GitHub Actions as the source in repository settings. The native mobile release still requires EAS credentials, Apple Developer, Google Play Console, Supabase, and Stripe production configuration.

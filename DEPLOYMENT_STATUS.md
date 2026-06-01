@@ -43,8 +43,9 @@ Before native deployment:
 
 1. Run `npx eas init` and commit the real generated EAS project id.
 2. Configure EAS secrets for Supabase and Stripe.
-3. Apply `supabase/schema.sql`.
-4. Deploy `supabase/functions/create-checkout-session`.
-5. Run physical iOS and Android QA from `docs/qa-script.md`.
+3. Add a GitHub repository secret named `EXPO_TOKEN` if using the `Native Preview Build` workflow.
+4. Apply `supabase/schema.sql`.
+5. Deploy `supabase/functions/create-checkout-session`.
+6. Run physical iOS and Android QA from `docs/qa-script.md`.
 
 The app is code-ready for deployment. Store submission remains blocked until external credentials, deployed services, and physical-device payment QA are complete.
