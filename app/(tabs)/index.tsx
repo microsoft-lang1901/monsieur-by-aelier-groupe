@@ -1,65 +1,248 @@
-import { ImageBackground, ScrollView, Text, View } from "react-native";
-import { useEffect, useState } from "react";
+import { ImageBackground, Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "expo-router";
 import { ProductGrid } from "@/components/ProductGrid";
 import { ScreenState } from "@/components/ScreenState";
 import { getCatalogueOverview } from "@/services/catalogueService";
-import type { Product } from "@/domain/products";
+import type { Material } from "@/domain/materials";
+import type { Collection, Product } from "@/domain/products";
 import { brandAssets } from "@/theme/brandAssets";
 import { sharedStyles } from "@/theme/styles";
-import { colors, spacing, typography } from "@/theme/tokens";
+import { colors, radius, spacing, tapTarget, typography } from "@/theme/tokens";
+
+type CatalogueSnapshot = {
+  products: Product[];
+  collections: Collection[];
+  materials: Material[];
+};
 
 export default function HomeScreen() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [snapshot, setSnapshot] = useState<CatalogueSnapshot | null>(null);
   const [catalogueMissing, setCatalogueMissing] = useState(false);
 
   useEffect(() => {
     getCatalogueOverview()
-      .then((snapshot) => setFeaturedProducts(snapshot.products.slice(0, 4)))
+      .then((result) => setSnapshot(result))
       .catch(() => setCatalogueMissing(true));
   }, []);
+
+  const featuredProducts = useMemo(() => snapshot?.products.slice(0, 4) ?? [], [snapshot]);
+  const heroProduct = featuredProducts[0];
+  const collectionChapters = useMemo(() => snapshot?.collections.filter((collection) => collection.products.length > 0).slice(0, 3) ?? [], [snapshot]);
+  const materialFamilies = useMemo(() => snapshot?.materials.slice(0, 4) ?? [], [snapshot]);
+
+  if (catalogueMissing) {
+    return (
+      <ScrollView style={sharedStyles.screen}>
+        <ScreenState
+          eyebrow="Catalogue Required"
+          title="Canonical catalogue unavailable"
+          body="Add the approved catalogue CSV to data/catalogue/monsieur-catalogue.csv before publishing the landing experience."
+        />
+      </ScrollView>
+    );
+  }
 
   return (
     <ScrollView style={sharedStyles.screen} contentContainerStyle={sharedStyles.scrollContent}>
       <ImageBackground
         source={brandAssets.moodboard}
         resizeMode="cover"
-        accessibilityLabel="MONSIEUR editorial moodboard"
-        style={{ minHeight: 520, justifyContent: "flex-end" }}
+        accessibilityLabel="MONSIEUR editorial wardrobe study"
+        style={{ minHeight: 620, justifyContent: "flex-end", backgroundColor: colors.taupe }}
       >
-        <View style={{ padding: spacing.lg, backgroundColor: colors.ivoryOverlay, gap: spacing.md }}>
+        <View style={{ padding: spacing.xl, backgroundColor: colors.ivoryOverlay, gap: spacing.md }}>
           <Text style={[typography.label, { color: colors.espresso, textTransform: "uppercase" }]}>MONSIEUR by Aelier Groupe</Text>
           <Text style={[typography.displayHero, { color: colors.ink }]}>Quietly Refined.</Text>
           <Text style={[typography.editorialLead, { color: colors.espresso }]}>
-            A catalogue-led wardrobe for the modern European gentleman.
+            A private luxury boutique, fashion editorial, and wardrobe archive composed around material conviction.
           </Text>
+          {heroProduct ? (
+            <Link
+              href={{ pathname: "/product/[sku]", params: { sku: heroProduct.productData.sku } }}
+              style={sharedStyles.secondaryButtonText}
+              accessibilityLabel={`Open ${heroProduct.productData.productName}`}
+            >
+              Enter The Wardrobe
+            </Link>
+          ) : null}
         </View>
       </ImageBackground>
 
       <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
-        <Text style={sharedStyles.label}>Editorial Lead</Text>
-        <Text style={sharedStyles.title}>The private boutique as a mobile archive.</Text>
+        <Text style={sharedStyles.label}>Editorial Home</Text>
+        <Text style={sharedStyles.title}>The garments are already complete.</Text>
         <Text style={sharedStyles.body}>
-          MONSIEUR presents material, construction, and silhouette before persuasion. Each garment begins in the catalogue and is
-          expanded with atelier intelligence.
+          MONSIEUR presents them with measured access: catalogue intelligence first, product context second, commerce last. The
+          experience is built for the modern European gentleman who values craft, restraint, and time.
         </Text>
-        <Link href="/collections" style={sharedStyles.secondaryButtonText} accessibilityLabel="Open collections">
-          View Collections
-        </Link>
       </View>
 
+      <View style={sharedStyles.hairline} />
+
       <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
-        <Text style={sharedStyles.label}>Featured Products</Text>
-        {catalogueMissing ? (
-          <ScreenState
-            eyebrow="Catalogue Required"
-            title="Awaiting canonical CSV"
-            body="Add the uploaded catalogue to data/catalogue/monsieur-catalogue.csv to generate products, collections, materials, and Fibre Passports."
-          />
-        ) : (
-          <ProductGrid products={featuredProducts} />
-        )}
+        <SectionHeader
+          eyebrow="Featured Products"
+          title="Selected from the catalogue"
+          body="Featured pieces are read from the canonical catalogue and remain replaceable by CMS or Vendure data."
+          href="/collections"
+          action="View Collections"
+        />
+        {snapshot ? <ProductGrid products={featuredProducts} /> : <LoadingPanel />}
+      </View>
+
+      <View style={sharedStyles.hairline} />
+
+      <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
+        <SectionHeader
+          eyebrow="Collection Chapters"
+          title="Generated by garment logic"
+          body="Maille Parisienne, Continental Sport, Heritage Collections, Evening Atelier, and Voyage Accessories are mapped from category data."
+          href="/collections"
+          action="Open Chapters"
+        />
+        <View style={{ gap: spacing.md }}>{collectionChapters.map((collection) => <CollectionChapter key={collection.id} collection={collection} />)}</View>
+      </View>
+
+      <View style={sharedStyles.hairline} />
+
+      <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
+        <SectionHeader
+          eyebrow="Material Search"
+          title="Begin with the cloth"
+          body="Discovery is organised by material family, hand feel, composition, and seasonal use before product category."
+          href="/search"
+          action="Search Materials"
+        />
+        <View style={{ gap: spacing.md }}>{materialFamilies.map((material) => <MaterialPanel key={material.id} material={material} />)}</View>
+      </View>
+
+      <View style={sharedStyles.hairline} />
+
+      <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
+        <Text style={sharedStyles.label}>Fibre Passport</Text>
+        <Text style={sharedStyles.title}>Each garment carries its provenance forward.</Text>
+        <View style={{ gap: spacing.md }}>
+          {[
+            "Composition",
+            "Origin Region",
+            "Construction Method",
+            "Garment Weight",
+            "Gauge",
+            "Micron Count",
+            "Traceability Statement"
+          ].map((field) => (
+            <View key={field} style={passportRowStyle}>
+              <Text style={sharedStyles.label}>{field}</Text>
+              <Text style={sharedStyles.body}>Loaded from the generated product record, with unknown fields held for atelier confirmation.</Text>
+            </View>
+          ))}
+        </View>
+        {heroProduct ? (
+          <Link
+            href={{ pathname: "/product/[sku]", params: { sku: heroProduct.productData.sku } }}
+            style={sharedStyles.secondaryButtonText}
+            accessibilityLabel="Open a product Fibre Passport"
+          >
+            View Fibre Passport
+          </Link>
+        ) : null}
+      </View>
+
+      <View style={sharedStyles.hairline} />
+
+      <View style={[sharedStyles.constrained, { gap: spacing.lg }]}>
+        <SectionHeader
+          eyebrow="Wardrobe Archive"
+          title="A considered holding space"
+          body="Clients can save pieces, review outfit direction, and return without marketplace noise."
+          href="/wardrobe"
+          action="Open Wardrobe"
+        />
       </View>
     </ScrollView>
   );
 }
+
+type SectionHeaderProps = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: "/collections" | "/search" | "/wardrobe";
+  action: string;
+};
+
+function SectionHeader({ eyebrow, title, body, href, action }: SectionHeaderProps) {
+  return (
+    <View style={{ gap: spacing.sm }}>
+      <Text style={sharedStyles.label}>{eyebrow}</Text>
+      <Text style={sharedStyles.title}>{title}</Text>
+      <Text style={sharedStyles.body}>{body}</Text>
+      <Link href={href} style={sharedStyles.secondaryButtonText} accessibilityLabel={action}>
+        {action}
+      </Link>
+    </View>
+  );
+}
+
+function CollectionChapter({ collection }: { collection: Collection }) {
+  return (
+    <Link href="/collections" asChild>
+      <Pressable accessibilityRole="button" accessibilityLabel={`Open ${collection.name}`}>
+        <View style={chapterStyle}>
+          <Text style={sharedStyles.label}>{collection.products.length} pieces</Text>
+          <Text style={typography.productName}>{collection.name}</Text>
+          <Text style={sharedStyles.body}>{collection.description}</Text>
+        </View>
+      </Pressable>
+    </Link>
+  );
+}
+
+function MaterialPanel({ material }: { material: Material }) {
+  return (
+    <Link href="/search" asChild>
+      <Pressable accessibilityRole="button" accessibilityLabel={`Search ${material.name}`}>
+        <View style={materialStyle}>
+          <Text style={sharedStyles.label}>{material.seasonality}</Text>
+          <Text style={typography.productName}>{material.name}</Text>
+          <Text style={sharedStyles.body}>{material.editorialDescription}</Text>
+        </View>
+      </Pressable>
+    </Link>
+  );
+}
+
+function LoadingPanel() {
+  return (
+    <View style={chapterStyle}>
+      <Text style={sharedStyles.label}>Loading Catalogue</Text>
+      <Text style={sharedStyles.body}>Preparing product, collection, material, and Fibre Passport records.</Text>
+    </View>
+  );
+}
+
+const chapterStyle = {
+  minHeight: tapTarget.minimum,
+  borderWidth: 1,
+  borderColor: colors.line,
+  borderRadius: radius.sm,
+  padding: spacing.lg,
+  gap: spacing.sm,
+  backgroundColor: colors.paper
+};
+
+const materialStyle = {
+  ...chapterStyle,
+  backgroundColor: colors.ivory
+};
+
+const passportRowStyle = {
+  minHeight: tapTarget.minimum,
+  borderWidth: 1,
+  borderColor: colors.line,
+  borderRadius: radius.sm,
+  padding: spacing.md,
+  gap: spacing.xs,
+  backgroundColor: colors.paper
+};
