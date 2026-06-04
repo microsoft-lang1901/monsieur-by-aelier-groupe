@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monsieur  - by Aelier Groupe</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+.launch { min-height: 100vh; display: flex; flex-direction: column; }
+.lhead { text-align: center; padding: 70px 24px 0; }
+.lhead .mark .word { font-size: 46px; }
+.lhead .mark .by { font-size: 9px; letter-spacing: 0.46em; }
+.lhead .tag { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--bronze); margin-top: 22px; letter-spacing: 0.04em; }
+.lhead .rule { width: 60px; height: 1px; background: var(--line-strong); margin: 30px auto 0; }
+
+.pillars-row { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; padding: 40px 24px 8px; }
+.prl { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 130px; text-align: center; }
+.prl .i { width: 30px; height: 30px; color: var(--bronze); } .prl .i svg { width: 100%; height: 100%; }
+.prl span { font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
+
+.choose { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1060px; margin: 40px auto; padding: 0 44px 70px; width: 100%; align-items: stretch; }
+.exp { position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); min-height: 440px; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; }
+.exp:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
+.exp .bg { position: absolute; inset: 0; z-index: -1; }
+.exp.web .bg { background: linear-gradient(165deg, #efe7d7, #ddd0b6); }
+.exp.app .bg { background: linear-gradient(165deg, #2c2820, #16130d); }
+.exp .num { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+.exp.web .num { color: var(--bronze); } .exp.app .num { color: var(--bronze-soft); }
+.exp h2 { font-family: var(--serif); font-weight: 500; font-size: 40px; line-height: 1.02; margin: 14px 0 12px; }
+.exp.web h2 { color: var(--ink); } .exp.app h2 { color: var(--on-dark); }
+.exp p { font-family: var(--read); font-size: 15px; line-height: 1.6; max-width: 320px; margin-bottom: 26px; }
+.exp.web p { color: var(--ink-2); } .exp.app p { color: var(--on-dark-2); }
+.exp .enter { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; padding-bottom: 5px; border-bottom: 1px solid; align-self: flex-start; transition: gap .2s; }
+.exp:hover .enter { gap: 15px; }
+.exp.web .enter { color: var(--ink); border-color: var(--line-strong); }
+.exp.app .enter { color: var(--on-dark); border-color: rgba(236,227,209,0.4); }
+.exp .enter svg { width: 15px; height: 15px; }
+/* decorative phone in app card */
+.exp.app .miniphone { position: absolute; right: 30px; top: 36px; width: 96px; height: 200px; border-radius: 22px; background: #0c0b09; padding: 5px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); opacity: .92; }
+.exp.app .miniphone .ms { width: 100%; height: 100%; border-radius: 18px; overflow: hidden; position: relative; background: linear-gradient(168deg,#5b5240,#272219); }
+.exp.app .miniphone .ms::after { content:''; position:absolute; left:50%; top:7px; transform:translateX(-50%); width:34px; height:9px; border-radius:6px; background:#000; }
+/* swatch strip in web card */
+.exp.web .swatches { position: absolute; right: 36px; top: 40px; display: flex; gap: 7px; }
+.exp.web .swatches i { width: 30px; height: 64px; border-radius: 3px; display: block; }
+
+.lfoot { text-align: center; padding: 0 24px 40px; font-family: var(--sans); font-size: 11px; letter-spacing: 0.06em; color: var(--faint); }
+
+@media (max-width: 860px) { .choose { grid-template-columns: 1fr; } .pillars-row { gap: 30px; } .lhead .mark .word { font-size: 36px; } }
+</style>
+</head>
+<body>
+<div class="launch">
+  <div class="lhead">
+    <a class="mark" href="home.html"><span class="word">monsieur</span><span class="by">by Aelier Groupe</span></a>
+    <div class="tag">Curated. Personal. Timeless.</div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="pillars-row">
+    <div class="prl"><span class="i"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1"><circle cx="15" cy="15" r="5"/><path d="M15 4v5M15 21v5M4 15h5M21 15h5"/></svg></span><span>Exceptional<br />Materials</span></div>
+    <div class="prl"><span class="i"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1"><path d="M9 5l6 10 6-10M15 15v10M11 23h8"/></svg></span><span>Expert<br />Craftsmanship</span></div>
+    <div class="prl"><span class="i"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1"><circle cx="15" cy="11" r="5"/><path d="M6 26a9 9 0 0 1 18 0"/></svg></span><span>Personalized<br />Service</span></div>
+    <div class="prl"><span class="i"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1"><path d="M15 4c3 4 8 5 8 5v7c0 5-4 8-8 10-4-2-8-5-8-10V9s5-1 8-5Z"/></svg></span><span>Timeless<br />Elegance</span></div>
+  </div>
+
+  <div class="choose">
+    <a class="exp web" href="home.html">
+      <div class="bg"></div>
+      <div class="swatches"><i class="tex t-cashmere"></i><i class="tex t-navy"></i><i class="tex t-camel"></i></div>
+      <div class="num">The Web Experience</div>
+      <h2>The Maison,<br />in full.</h2>
+      <p>Browse the collection, explore the material library, and commission made-to-measure on the desktop experience.</p>
+      <span class="enter">Enter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="exp app" href="mobile.html">
+      <div class="bg"></div>
+      <div class="miniphone"><div class="ms"></div></div>
+      <div class="num">The Mobile Application</div>
+      <h2>In the palm<br />of your hand.</h2>
+      <p>The complete experience  - ten crafted screens, from homepage to fibre passport, in a native iPhone prototype.</p>
+      <span class="enter">Enter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+
+  <div class="lfoot">© 2026 Monsieur · by Aelier Groupe · A digital experience as refined as what we create</div>
+</div>
+</body>
+</html>

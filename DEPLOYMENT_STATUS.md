@@ -1,51 +1,32 @@
-# MONSIEUR Deployment Status
+# Deployment Status
 
-## Local Release Gates
+## Ready
 
-Run:
+- Vercel static output directory is `public`.
+- API routes are handled by `api/[...route].js`.
+- The backend no longer depends on a long-running listener for production.
+- Production writes require Supabase; local JSON is development-only.
+- Private API routes require a signed session cookie.
+- Supabase schema includes explicit service-role grants for newer Data API defaults.
 
-```bash
-npm run release:local
+## Required Before Production
+
+Set these Vercel environment variables:
+
+```text
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+MONSIEUR_SESSION_SECRET
+MONSIEUR_CLIENT_ACCESS_CODE
 ```
 
-Current local release gates are expected to pass:
+Then run the SQL in `supabase/schema.sql` against the production Supabase project.
 
-- Catalogue import
-- TypeScript
-- Token compliance
-- Forbidden-content compliance
-- Supabase policy check
-- Accessibility lint
-- Contrast check
-- Brand asset check
-- Deployment config check
-- Automated tests
-- Web export
+## Last Local Verification
 
-## Production Gate
-
-Run only in a shell with real production/test deployment credentials:
-
-```bash
-npm run release:production-check
-```
-
-This intentionally fails until these values are configured:
-
-- `EXPO_PUBLIC_SUPABASE_URL`
-- `EXPO_PUBLIC_SUPABASE_ANON_KEY`
-- `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-- `STRIPE_SECRET_KEY`
-
-## EAS Deployment
-
-Before native deployment:
-
-1. Run `npx eas init` and commit the real generated EAS project id.
-2. Configure EAS secrets for Supabase and Stripe.
-3. Add a GitHub repository secret named `EXPO_TOKEN` if using the `Native Preview Build` workflow.
-4. Apply `supabase/schema.sql`.
-5. Deploy `supabase/functions/create-checkout-session`.
-6. Run physical iOS and Android QA from `docs/qa-script.md`.
-
-The app is code-ready for deployment. Store submission remains blocked until external credentials, deployed services, and physical-device payment QA are complete.
+- `npm run build`
+- Module load check for `lib/monsieur-api` and `api/[...route].js`
+- Local health endpoint
+- Unauthenticated private route returns `401`
+- Authenticated private route succeeds
+- Browser smoke test for launcher and product page

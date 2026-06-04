@@ -5,40 +5,17 @@ on:
   push:
     branches:
       - main
-      - release/**
+      - "codex/**"
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: "20"
           cache: npm
-
-      - name: Install
-        run: npm ci
-
-      - name: Import catalogue
-        run: npm run import:catalogue
-
-      - name: Verify
-        run: npm run verify
-
-      - name: Supabase policies
-        run: npm run lint:supabase
-
-      - name: Web export
-        run: npm run build:web
-
-      - name: Production env gate documentation
-        run: npm run validate:env
-        env:
-          EXPO_PUBLIC_SUPABASE_URL: https://example.supabase.co
-          EXPO_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder
-          EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_ci_placeholder
-          STRIPE_SECRET_KEY: sk_test_ci_placeholder
+      - run: npm ci
+      - run: npm run build
+      - run: node -e "require('./lib/monsieur-api'); require('./api/[...route].js'); console.log('modules ok')"

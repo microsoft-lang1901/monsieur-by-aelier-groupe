@@ -1,83 +1,41 @@
-# MONSIEUR by Aelier Groupe
+# Monsieur by Aelier Groupe
 
-Catalogue-driven luxury menswear mobile MVP.
+Deployment-ready private-client web experience for Monsieur by Aelier Groupe.
 
-## Current State
+## Run Locally
 
-The repository is scaffolded for Expo React Native with typed catalogue ingestion, product generation, five-tab navigation, wardrobe persistence, Supabase boundaries, Stripe test-mode checkout boundaries, token checks, and content checks.
-
-The canonical catalogue CSV is required before catalogue-dependent screens can show real product data.
-
-Expected file:
-
-```text
-data/catalogue/monsieur-catalogue.csv
-```
-
-Required CSV columns:
-
-```text
-sku,productName,category,silhouette,construction,fabricProgram,primaryColor,season,msrpUsd
-```
-
-The importer also accepts the production catalogue headers:
-
-```text
-SKU,Product Name,Category,Silhouette / Style,Construction,Fabric Program,Primary Color,Season,MSRP USD
-```
-
-## Commands
-
-```bash
+```powershell
 npm install
-npm run start
-npm run verify
+$env:MONSIEUR_SESSION_SECRET="local-development-secret"
+$env:MONSIEUR_CLIENT_ACCESS_CODE="atelier"
+npm start
 ```
 
-`npm run verify` includes TypeScript, token checks, content checks, Supabase policy checks, accessibility checks, contrast checks, brand asset checks, and tests.
+Open `http://localhost:4173`.
 
-For a deterministic web build check:
+## Vercel Deployment
 
-```bash
-npm run import:catalogue
-npm run build:web
-npm run serve:web
-npm run lan:url
-```
+The app is configured for Vercel:
 
-Open the served build from the same computer at `http://127.0.0.1:8082`. From a phone on the same Wi-Fi, use the computer's LAN IP, for example `http://192.168.x.x:8082`; `127.0.0.1` on a phone points back to the phone, not the development machine.
+- Static frontend: `public`
+- Serverless API: `api/[...route].js`
+- Shared backend logic: `lib/monsieur-api.js`
+- Project config: `vercel.json`
 
-## Environment
-
-Create `.env` or Expo environment variables:
+Required Vercel environment variables:
 
 ```text
-EXPO_PUBLIC_SUPABASE_URL=
-EXPO_PUBLIC_SUPABASE_ANON_KEY=
-EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+MONSIEUR_SESSION_SECRET=
+MONSIEUR_CLIENT_ACCESS_CODE=
 ```
 
-Stripe checkout creation is represented by `supabase/functions/create-checkout-session/index.ts` and should be deployed with Supabase once project secrets are configured.
+Run `supabase/schema.sql` in Supabase before production deployment.
 
-## Release Readiness
+## Verification
 
-See:
-
-- `DEPLOYMENT_STATUS.md`
-- `docs/tier-1-ecommerce-platform-task-list.md`
-- `docs/tier-1-stage-completion-status.md`
-- `docs/provider-integration-plan.md`
-- `docs/production-checklist.md`
-- `docs/qa-script.md`
-- `docs/native-build.md`
-
-## GitHub Deployment
-
-The repository includes:
-
-- `.github/workflows/verify.yml` for pull request and release checks.
-- `.github/workflows/deploy-web.yml` for GitHub Pages web deployment from `main`.
-- `.github/workflows/native-preview.yml` for manual EAS Android/iOS preview builds once `EXPO_TOKEN` is configured.
-
-After the repository is pushed to GitHub, enable Pages with GitHub Actions as the source in repository settings. The native mobile release still requires EAS credentials, Apple Developer, Google Play Console, Supabase, and Stripe production configuration.
+```powershell
+npm run build
+node -e "require('./lib/monsieur-api'); require('./api/[...route].js'); console.log('modules ok')"
+```

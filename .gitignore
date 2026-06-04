@@ -1,9 +1,9 @@
-node_modules/
-dist-web/
-.expo/
-.codex-remote-attachments/
-expo-web.out.log
-expo-web.err.log
-static-web.out.log
-static-web.err.log
+.vercel
+.env
+.env.*
+!.env.example
+node_modules
 npm-debug.log*
+test-screenshots
+tmp-vendure-catalogue
+.codex-remote-attachments

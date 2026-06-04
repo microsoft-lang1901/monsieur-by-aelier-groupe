@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monsieur  - by Aelier Groupe</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+/* ---------------- HERO ---------------- */
+.hero { position: relative; min-height: 86vh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero .photo { position: absolute; inset: 0; }
+.hero .photo.deep { background: linear-gradient(168deg, #4a4234 0%, #322c22 44%, #1c1812 100%); }
+.hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,15,10,0.82) 4%, rgba(18,15,10,0.2) 46%, rgba(18,15,10,0.42) 100%); }
+.hero .figure { position: absolute; right: 4%; bottom: 0; width: 44%; height: 92%;
+  background:
+    radial-gradient(58% 66% at 50% 24%, rgba(228,210,176,0.26), transparent 62%),
+    linear-gradient(170deg, #6a5f49 0%, #463f30 50%, #2a2419 100%);
+  -webkit-mask-image: radial-gradient(70% 86% at 52% 56%, #000 38%, transparent 76%);
+  mask-image: radial-gradient(70% 86% at 52% 56%, #000 38%, transparent 76%); opacity: .9; }
+.hero .inner { position: relative; padding-bottom: 92px; max-width: 720px; }
+.hero .eyebrow { color: var(--bronze-soft); display: inline-flex; align-items: center; gap: 13px; margin-bottom: 26px; }
+.hero .eyebrow::before { content:''; width: 36px; height: 1px; background: var(--bronze-soft); }
+.hero h1 { font-family: var(--serif); font-weight: 500; font-size: 74px; line-height: 1.06; letter-spacing: -0.01em; color: var(--on-dark); }
+.hero h1 em { font-style: italic; color: var(--bronze-soft); }
+.hero p { font-family: var(--read); font-size: 17px; line-height: 1.7; color: var(--on-dark-2); max-width: 440px; margin: 30px 0 36px; }
+.hero .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ---------------- PILLARS ---------------- */
+.pillars { background: var(--dark); color: var(--on-dark); }
+.pillars .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.pillar { padding: 44px 34px; border-right: 1px solid rgba(236,227,209,0.12); text-align: center; }
+.pillar:last-child { border-right: none; }
+.pillar .pico { width: 38px; height: 38px; margin: 0 auto 16px; color: var(--bronze-soft); }
+.pillar .pico svg { width: 100%; height: 100%; }
+.pillar h4 { font-family: var(--sans); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; color: var(--on-dark); margin-bottom: 10px; }
+.pillar p { font-family: var(--read); font-size: 13.5px; line-height: 1.6; color: var(--on-dark-2); }
+
+/* ---------------- SECTIONS ---------------- */
+.sec { padding: 96px 0; }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 50px; }
+.sec-head .l { max-width: 620px; }
+.sec-head .eyebrow { display: block; margin-bottom: 18px; }
+.sec-head h2 { font-family: var(--serif); font-weight: 500; font-size: 46px; line-height: 1.04; letter-spacing: -0.01em; color: var(--ink); }
+.sec-head h2 em { font-style: italic; color: var(--bronze); }
+.sec-head p { font-family: var(--read); font-size: 15.5px; color: var(--ink-2); margin-top: 14px; line-height: 1.6; }
+
+/* material library grid */
+.matgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.matcard { position: relative; aspect-ratio: 3/4; border-radius: 3px; overflow: hidden; border: 1px solid var(--line-soft);
+  transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s; display: block; }
+.matcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+.matcard .tex { position: absolute; inset: 0; }
+.matcard .mv { position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,15,10,0.8) 6%, transparent 56%); }
+.matcard .mb { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 22px 24px; }
+.matcard .mb h4 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--on-dark); }
+.matcard .mb p { font-family: var(--read); font-size: 13px; color: var(--on-dark-2); margin-top: 5px; line-height: 1.45; }
+
+/* featured collection */
+.feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+
+/* split editorial */
+.split { display: grid; grid-template-columns: 1.05fr 1fr; align-items: stretch; }
+.split.dark { background: var(--dark); color: var(--on-dark); }
+.split .scopy { padding: 96px 72px; display: flex; flex-direction: column; justify-content: center; }
+.split .scopy .eyebrow { color: var(--bronze-soft); margin-bottom: 18px; }
+.split .scopy h2 { font-family: var(--serif); font-weight: 500; font-size: 48px; line-height: 1.04; color: var(--on-dark); }
+.split .scopy h2 em { font-style: italic; color: var(--bronze-soft); }
+.split .scopy p { font-family: var(--read); font-size: 16px; line-height: 1.75; color: var(--on-dark-2); margin: 22px 0 34px; max-width: 460px; }
+.split .sart { position: relative; min-height: 560px; }
+.split .sart .photo { position: absolute; inset: 0; }
+.split .sart .cap { position: absolute; left: 30px; bottom: 28px; font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--on-dark); z-index: 2; }
+
+/* mtm features */
+.mtm-list { display: grid; gap: 0; margin-top: 6px; }
+.mtm-list .f { display: flex; gap: 18px; padding: 20px 0; border-top: 1px solid rgba(236,227,209,0.14); }
+.mtm-list .f .n { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--bronze-soft); width: 32px; flex: none; }
+.mtm-list .f b { font-family: var(--sans); font-weight: 500; font-size: 13.5px; letter-spacing: 0.04em; color: var(--on-dark); display: block; margin-bottom: 4px; }
+.mtm-list .f p { font-family: var(--read); font-size: 13.5px; color: var(--on-dark-2); margin: 0; line-height: 1.5; }
+
+@media (max-width: 1080px) {
+  .matgrid, .feat-grid { grid-template-columns: repeat(2, 1fr); }
+  .pillars .wrap { grid-template-columns: repeat(2, 1fr); }
+  .pillar:nth-child(2) { border-right: none; }
+  .pillar { border-bottom: 1px solid rgba(236,227,209,0.12); }
+  .split { grid-template-columns: 1fr; }
+  .split .scopy { padding: 60px 30px; }
+  .hero h1 { font-size: 52px; }
+}
+</style>
+</head>
+<body>
+
+<div id="m-header" data-active=""></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="photo deep"></div>
+  <div class="figure"></div>
+  <div class="veil"></div>
+  <div class="wrap inner">
+    <span class="eyebrow">A digital experience as refined as what we create</span>
+    <h1>Timeless by nature.<br /><em>Made for you.</em></h1>
+    <p>A warm welcome into the world of natural luxury  - exceptional materials, expert craftsmanship, and a personal service built to last a lifetime.</p>
+    <div class="cta">
+      <a href="collections.html" class="btn btn-cream btn-lg">Discover Collection</a>
+      <a href="made-to-measure.html" class="btn btn-ghost-light btn-lg">Made to Measure</a>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="wrap">
+    <div class="pillar">
+      <span class="pico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><circle cx="20" cy="20" r="6"/><path d="M20 6v6M20 28v6M6 20h6M28 20h6M10 10l4 4M26 26l4 4M30 10l-4 4M14 26l-4 4"/></svg></span>
+      <h4>Exceptional Materials</h4>
+      <p>The world's finest natural fibres, each selected for its character.</p>
+    </div>
+    <div class="pillar">
+      <span class="pico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 6l8 14 8-14M20 20v14M14 30h12"/><circle cx="12" cy="6" r="2"/><circle cx="28" cy="6" r="2"/></svg></span>
+      <h4>Expert Craftsmanship</h4>
+      <p>Made in Italy by master artisans, each piece fully hand-finished.</p>
+    </div>
+    <div class="pillar">
+      <span class="pico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><circle cx="20" cy="14" r="6"/><path d="M8 34a12 12 0 0 1 24 0"/></svg></span>
+      <h4>Personalized Service</h4>
+      <p>Tailored guidance at every step, from first measure to final fitting.</p>
+    </div>
+    <div class="pillar">
+      <span class="pico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 5c4 5 10 7 10 7v9c0 7-5 11-10 14-5-3-10-7-10-14v-9s6-2 10-7Z"/><path d="M15 20l4 4 7-7"/></svg></span>
+      <h4>Timeless Elegance</h4>
+      <p>Designed to be worn for years, not seasons. Quietly, forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIAL LIBRARY -->
+<section class="sec wrap">
+  <div class="sec-head">
+    <div class="l">
+      <span class="eyebrow">Material Library</span>
+      <h2>Explore the world's<br /><em>finest natural fibres.</em></h2>
+      <p>Each material is selected for its character, performance and timeless quality.</p>
+    </div>
+    <a href="materials.html" class="linkarrow">All Materials <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="matgrid" id="matGrid"></div>
+</section>
+
+<!-- FEATURED COLLECTION -->
+<section class="sec wrap" style="padding-top:0;">
+  <div class="sec-head">
+    <div class="l">
+      <span class="eyebrow">The Collection</span>
+      <h2>Pieces made to be kept.</h2>
+      <p>A considered edit of the season  - tailoring, knitwear and outerwear in their truest materials.</p>
+    </div>
+    <a href="collections.html" class="linkarrow">View Collection <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
+</section>
+
+<!-- MADE TO MEASURE -->
+<section class="split dark">
+  <div class="scopy">
+    <span class="eyebrow">Made to Measure</span>
+    <h2>Create something <em>uniquely yours.</em></h2>
+    <p>From the cloth to the smallest detail, a garment shaped to your measurements and your life. Begin in minutes; finished over weeks by hand.</p>
+    <div class="mtm-list">
+      <div class="f"><span class="n">01</span><div><b>STYLE &amp; SILHOUETTE</b><p>Choose the soul of the garment  - cut, lapel and stance.</p></div></div>
+      <div class="f"><span class="n">02</span><div><b>FABRIC SELECTION</b><p>Source from the world's finest mills, by the metre.</p></div></div>
+      <div class="f"><span class="n">03</span><div><b>PERSONAL MEASUREMENTS</b><p>A saved profile, refined at every fitting.</p></div></div>
+    </div>
+    <a href="made-to-measure.html" class="btn btn-cream" style="margin-top:34px; align-self:flex-start;">Begin Made to Measure</a>
+  </div>
+  <div class="sart"><div class="photo"></div><span class="cap">Soul 02  - Relaxed Double-Breasted</span></div>
+</section>
+
+<!-- FIBRE PASSPORT TEASER -->
+<section class="sec wrap" style="text-align:center;">
+  <span class="eyebrow">The Fibre Passport</span>
+  <h2 class="serif" style="font-weight:500; font-size:46px; line-height:1.08; margin:18px auto 18px; max-width:720px; letter-spacing:-0.01em;">Complete transparency, from <em style="font-style:italic; color:var(--bronze)">origin to atelier.</em></h2>
+  <p style="font-family:var(--read); font-size:16px; color:var(--ink-2); max-width:520px; margin:0 auto 34px; line-height:1.7;">Every Monsieur piece carries a digital certificate of origin and craftsmanship  - the fibre, the makers, the journey, fully verified.</p>
+  <a href="passport.html" class="btn btn-dark">View a Fibre Passport</a>
+</section>
+
+<div id="m-footer"></div>
+
+<script src="monsieur-data.js"></script>
+<script src="chrome.js"></script>
+<script src="backend-client.js"></script>
+<script>
+  document.getElementById('matGrid').innerHTML = MATERIALS.slice(0,4).map(m => `
+    <a class="matcard" href="materials.html?q=${encodeURIComponent(m.name)}">
+      <div class="tex ${m.tone}"></div><div class="mv"></div>
+      <div class="mb"><h4>${m.name}</h4><p>${m.line}</p></div>
+    </a>`).join('');
+
+  document.getElementById('featGrid').innerHTML = GARMENTS.slice(0,4).map(g => `
+    <a class="gcard" href="product.html?id=${g.id}">
+      <div class="ph"><div class="${g.tone.includes('navy')||g.tone.includes('black')||g.tone.includes('charcoal')?'photo':'tex'} ${g.tone}"></div>
+        ${g.tagline?`<span class="tagline">${g.tagline}</span>`:''}</div>
+      <div class="gb"><div class="house">${g.house}</div><h4>${g.name}</h4><div class="meta">${g.material}</div><div class="price">${fmtPrice(g.price)}</div></div>
+    </a>`).join('');
+</script>
+</body>
+</html>

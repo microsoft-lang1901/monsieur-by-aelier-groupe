@@ -1,0 +1,366 @@
+{
+  "wardrobe": [
+    {
+      "id": "silk-cashmere-rollneck",
+      "name": "Silk Cashmere Rollneck",
+      "sku": "",
+      "house": "Knitwear",
+      "tone": "t-cashmere",
+      "material": "Silk Cashmere",
+      "price": 1550,
+      "board": "",
+      "editorial": [],
+      "saved_at": "2026-06-04T05:05:51.845Z",
+      "created_at": "2026-06-04T05:05:51.845Z"
+    },
+    {
+      "id": "soul-02-db-suit",
+      "name": "Soul 02 Double-Breasted Suit",
+      "sku": "AG-SU-002",
+      "house": "Tailoring",
+      "tone": "t-navy",
+      "material": "Tropical Wool Linen",
+      "price": 4200,
+      "board": "uploads/product-boards/continental-db-blazer.png",
+      "editorial": [
+        {
+          "label": "Front View",
+          "src": "uploads/product-editorial/AG-SU-002-front.png"
+        },
+        {
+          "label": "Side View",
+          "src": "uploads/product-editorial/AG-SU-002-side.png"
+        },
+        {
+          "label": "Back View",
+          "src": "uploads/product-editorial/AG-SU-002-back.png"
+        }
+      ],
+      "saved_at": "2026-06-04T05:05:43.020Z",
+      "created_at": "2026-06-04T05:05:43.020Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord_mpz18ckx_qpmb9j",
+      "status": "confirmed",
+      "payment_method": "apple",
+      "shipping": {
+        "name": "Alexandre Moreau",
+        "address": "",
+        "city": "",
+        "postalCode": ""
+      },
+      "items": [
+        {
+          "id": "silk-cashmere-rollneck",
+          "name": "Silk Cashmere Rollneck",
+          "sku": "",
+          "house": "Knitwear",
+          "tone": "t-cashmere",
+          "material": "Silk Cashmere",
+          "price": 1550,
+          "board": "",
+          "editorial": []
+        },
+        {
+          "id": "soul-02-db-suit",
+          "name": "Soul 02 Double-Breasted Suit",
+          "sku": "AG-SU-002",
+          "house": "Tailoring",
+          "tone": "t-navy",
+          "material": "Tropical Wool Linen",
+          "price": 4200,
+          "board": "uploads/product-boards/continental-db-blazer.png",
+          "editorial": [
+            {
+              "label": "Front View",
+              "src": "uploads/product-editorial/AG-SU-002-front.png"
+            },
+            {
+              "label": "Side View",
+              "src": "uploads/product-editorial/AG-SU-002-side.png"
+            },
+            {
+              "label": "Back View",
+              "src": "uploads/product-editorial/AG-SU-002-back.png"
+            }
+          ]
+        }
+      ],
+      "subtotal": 5750,
+      "total": 5750,
+      "payment_status": "paid",
+      "payment_intent_id": "pi_mpz18cks_mybgkp",
+      "created_at": "2026-06-04T05:05:53.841Z"
+    },
+    {
+      "id": "ord_mpz185f2_aff53z",
+      "status": "confirmed",
+      "payment_method": "apple",
+      "shipping": {
+        "name": "Alexandre Moreau",
+        "address": "",
+        "city": "",
+        "postalCode": ""
+      },
+      "items": [
+        {
+          "id": "soul-02-db-suit",
+          "name": "Soul 02 Double-Breasted Suit",
+          "sku": "AG-SU-002",
+          "house": "Tailoring",
+          "tone": "t-navy",
+          "material": "Tropical Wool Linen",
+          "price": 4200,
+          "board": "uploads/product-boards/continental-db-blazer.png",
+          "editorial": [
+            {
+              "label": "Front View",
+              "src": "uploads/product-editorial/AG-SU-002-front.png"
+            },
+            {
+              "label": "Side View",
+              "src": "uploads/product-editorial/AG-SU-002-side.png"
+            },
+            {
+              "label": "Back View",
+              "src": "uploads/product-editorial/AG-SU-002-back.png"
+            }
+          ]
+        }
+      ],
+      "subtotal": 4200,
+      "total": 4200,
+      "payment_status": "paid",
+      "payment_intent_id": "pi_mpz185ey_rq8itr",
+      "created_at": "2026-06-04T05:05:44.558Z"
+    }
+  ],
+  "mtmCommissions": [
+    {
+      "id": "mtm_mpz18fhd_8xsu7t",
+      "status": "commissioned",
+      "style": "Mobile MTM",
+      "fabric": "Saved measurement profile",
+      "details": [
+        "Mobile flow"
+      ],
+      "measurements": [
+        {
+          "k": "Chest",
+          "v": "102 cm"
+        },
+        {
+          "k": "Waist",
+          "v": "86 cm"
+        },
+        {
+          "k": "Hip",
+          "v": "101 cm"
+        },
+        {
+          "k": "Shoulder",
+          "v": "48 cm"
+        },
+        {
+          "k": "Sleeve Length",
+          "v": "63 cm"
+        },
+        {
+          "k": "Back Length",
+          "v": "75 cm"
+        },
+        {
+          "k": "Inseam",
+          "v": "82 cm"
+        }
+      ],
+      "estimated_atelier_time": "6-8 weeks",
+      "created_at": "2026-06-04T05:05:57.601Z"
+    },
+    {
+      "id": "mtm_mpz188xe_vrr9el",
+      "status": "commissioned",
+      "style": "Double-Breasted",
+      "fabric": "Silk Cashmere",
+      "details": [
+        "Peak Lapel",
+        "Side Vents",
+        "Pleated"
+      ],
+      "measurements": [
+        {
+          "k": "Chest",
+          "v": "102 cm"
+        },
+        {
+          "k": "Waist",
+          "v": "86 cm"
+        },
+        {
+          "k": "Hip",
+          "v": "101 cm"
+        },
+        {
+          "k": "Shoulder",
+          "v": "48 cm"
+        },
+        {
+          "k": "Sleeve Length",
+          "v": "63 cm"
+        },
+        {
+          "k": "Back Length",
+          "v": "75 cm"
+        },
+        {
+          "k": "Inseam",
+          "v": "82 cm"
+        }
+      ],
+      "estimated_atelier_time": "6-8 weeks",
+      "created_at": "2026-06-04T05:05:49.106Z"
+    }
+  ],
+  "fittingRequests": [
+    {
+      "id": "fit_mpz18eeu_og5fjc",
+      "status": "requested",
+      "name": "Mr. Alexandre Moreau",
+      "note": "Mobile made-to-measure fitting requested.",
+      "created_at": "2026-06-04T05:05:56.214Z"
+    }
+  ],
+  "contactRequests": [
+    {
+      "id": "con_mpz187du_u7fqxq",
+      "status": "new",
+      "name": "Alexandre Moreau",
+      "email": "alex@example.com",
+      "message": "Final browser test request.",
+      "created_at": "2026-06-04T05:05:47.106Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_mpz3lmcs_mzolb5",
+      "type": "auth.login",
+      "payload": {
+        "clientId": "client_alexandre_moreau"
+      },
+      "createdAt": "2026-06-04T06:12:12.268Z",
+      "created_at": "2026-06-04T06:12:12.268Z"
+    },
+    {
+      "id": "evt_mpz3a7wm_fw6eop",
+      "type": "auth.login",
+      "payload": {
+        "clientId": "client_alexandre_moreau"
+      },
+      "createdAt": "2026-06-04T06:03:20.326Z",
+      "created_at": "2026-06-04T06:03:20.326Z"
+    },
+    {
+      "id": "evt_mpz18fhd_tolu2w",
+      "type": "mtm.commissioned",
+      "payload": {
+        "id": "mtm_mpz18fhd_8xsu7t",
+        "style": "Mobile MTM",
+        "fabric": "Saved measurement profile"
+      },
+      "createdAt": "2026-06-04T05:05:57.601Z",
+      "created_at": "2026-06-04T05:05:57.601Z"
+    },
+    {
+      "id": "evt_mpz18eeu_q7ga2h",
+      "type": "fitting.requested",
+      "payload": {
+        "id": "fit_mpz18eeu_og5fjc"
+      },
+      "createdAt": "2026-06-04T05:05:56.214Z",
+      "created_at": "2026-06-04T05:05:56.214Z"
+    },
+    {
+      "id": "evt_mpz18ckx_wxzyaw",
+      "type": "order.confirmed",
+      "payload": {
+        "id": "ord_mpz18ckx_qpmb9j",
+        "total": 5750
+      },
+      "createdAt": "2026-06-04T05:05:53.841Z",
+      "created_at": "2026-06-04T05:05:53.841Z"
+    },
+    {
+      "id": "evt_mpz18cks_6kca2n",
+      "type": "payment.succeeded",
+      "payload": {
+        "id": "pi_mpz18cks_mybgkp",
+        "amount": 5750
+      },
+      "createdAt": "2026-06-04T05:05:53.836Z",
+      "created_at": "2026-06-04T05:05:53.836Z"
+    },
+    {
+      "id": "evt_mpz18b1h_iodkt1",
+      "type": "wardrobe.added",
+      "payload": {
+        "id": "silk-cashmere-rollneck",
+        "name": "Silk Cashmere Rollneck"
+      },
+      "createdAt": "2026-06-04T05:05:51.845Z",
+      "created_at": "2026-06-04T05:05:51.845Z"
+    },
+    {
+      "id": "evt_mpz188xe_qdowyo",
+      "type": "mtm.commissioned",
+      "payload": {
+        "id": "mtm_mpz188xe_vrr9el",
+        "style": "Double-Breasted",
+        "fabric": "Silk Cashmere"
+      },
+      "createdAt": "2026-06-04T05:05:49.106Z",
+      "created_at": "2026-06-04T05:05:49.106Z"
+    },
+    {
+      "id": "evt_mpz187du_i9wn4e",
+      "type": "contact.created",
+      "payload": {
+        "id": "con_mpz187du_u7fqxq",
+        "email": "alex@example.com"
+      },
+      "createdAt": "2026-06-04T05:05:47.106Z",
+      "created_at": "2026-06-04T05:05:47.106Z"
+    },
+    {
+      "id": "evt_mpz185f2_dueiya",
+      "type": "order.confirmed",
+      "payload": {
+        "id": "ord_mpz185f2_aff53z",
+        "total": 4200
+      },
+      "createdAt": "2026-06-04T05:05:44.558Z",
+      "created_at": "2026-06-04T05:05:44.558Z"
+    },
+    {
+      "id": "evt_mpz185ey_7aukcw",
+      "type": "payment.succeeded",
+      "payload": {
+        "id": "pi_mpz185ey_rq8itr",
+        "amount": 4200
+      },
+      "createdAt": "2026-06-04T05:05:44.554Z",
+      "created_at": "2026-06-04T05:05:44.554Z"
+    },
+    {
+      "id": "evt_mpz1848c_b2j6tu",
+      "type": "wardrobe.added",
+      "payload": {
+        "id": "soul-02-db-suit",
+        "name": "Soul 02 Double-Breasted Suit"
+      },
+      "createdAt": "2026-06-04T05:05:43.020Z",
+      "created_at": "2026-06-04T05:05:43.020Z"
+    }
+  ]
+}
