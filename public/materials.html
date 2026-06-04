@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Material Library  - Monsieur</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+.mbanner { background: var(--paper-2); border-bottom: 1px solid var(--line-soft); }
+.mbanner .wrap { padding: 56px 44px 46px; }
+.crumb { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 22px; display: flex; gap: 9px; }
+.crumb a:hover { color: var(--ink-2); } .crumb b { color: var(--ink-2); font-weight: 400; }
+.mbanner h1 { font-family: var(--serif); font-weight: 500; font-size: 56px; line-height: 1; color: var(--ink); }
+.mbanner p { font-family: var(--read); font-size: 15.5px; color: var(--ink-2); margin-top: 14px; max-width: 540px; line-height: 1.65; }
+.searchbar { display: flex; align-items: center; gap: 12px; background: var(--card-2); border: 1px solid var(--line); border-radius: 3px; padding: 15px 20px; margin-top: 30px; max-width: 620px; }
+.searchbar svg { width: 19px; height: 19px; color: var(--muted); flex: none; }
+.searchbar input { flex: 1; background: none; border: none; outline: none; font-family: var(--sans); font-size: 14px; font-weight: 300; color: var(--ink); }
+.searchbar input::placeholder { color: var(--faint); }
+.fchips { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 18px; }
+.fchip { font-family: var(--sans); font-size: 11px; letter-spacing: 0.06em; padding: 8px 16px; border-radius: 40px; background: transparent; border: 1px solid var(--line); color: var(--ink-2); cursor: pointer; transition: all .18s; }
+.fchip.on, .fchip:hover { border-color: var(--bronze); color: var(--bronze); }
+.fchip.on { background: rgba(156,124,76,0.08); }
+
+.rechead { font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 40px 0 8px; }
+.mlist { padding-bottom: 90px; }
+.mrow { display: grid; grid-template-columns: 132px 1fr auto; gap: 26px; align-items: center; padding: 24px 0; border-top: 1px solid var(--line-soft); transition: padding .25s; }
+.mrow:hover { padding-left: 6px; }
+.mrow .sw { width: 132px; aspect-ratio: 16/10; border-radius: 3px; overflow: hidden; position: relative; border: 1px solid var(--line-soft); }
+.mrow .sw .tex { position: absolute; inset: 0; }
+.mrow .mc h3 { font-family: var(--serif); font-size: 26px; font-weight: 600; color: var(--ink); }
+.mrow .mc .ln { font-family: var(--read); font-size: 15px; color: var(--ink-2); margin: 5px 0 8px; }
+.mrow .mc .desc { font-family: var(--read); font-size: 13.5px; color: var(--muted); line-height: 1.6; max-width: 560px; }
+.mrow .tags { display: flex; gap: 8px; margin-top: 10px; }
+.mrow .tags span { font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bronze); border: 1px solid rgba(156,124,76,0.34); border-radius: 40px; padding: 4px 11px; }
+.mrow .go { color: var(--muted); transition: color .2s, transform .2s; } .mrow:hover .go { color: var(--bronze); transform: translateX(4px); }
+.mrow .go svg { width: 22px; height: 22px; }
+.empty { padding: 60px 0; text-align: center; font-family: var(--read); color: var(--muted); }
+
+@media (max-width: 1080px) { .mbanner h1 { font-size: 42px; } .mrow { grid-template-columns: 100px 1fr; } .mrow .sw { width: 100px; } .mrow .go { display: none; } }
+</style>
+</head>
+<body>
+
+<div id="m-header" data-active="materials"></div>
+
+<section class="mbanner">
+  <div class="wrap">
+    <div class="crumb"><a href="home.html">Home</a><span>/</span><b>Material Library</b></div>
+    <h1>Material Search</h1>
+    <p>Find the perfect fabric based on your preferences and needs. Each material is selected for its character, performance and timeless quality.</p>
+    <div class="searchbar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" placeholder="Search materials, fibres, qualities" />
+    </div>
+    <div class="fchips" id="fchips"></div>
+  </div>
+</section>
+
+<div class="wrap mlist">
+  <div class="rechead">Recommended Materials</div>
+  <div id="rows"></div>
+</div>
+
+<div id="m-footer"></div>
+
+<script src="monsieur-data.js"></script>
+<script src="chrome.js"></script>
+<script src="backend-client.js"></script>
+<script>
+const FILTERS = ['Natural Fibres','Warm','Lightweight','Midweight','Heavyweight','Cool','All Season'];
+let active = new Set(); let q = '';
+document.getElementById('fchips').innerHTML = FILTERS.map(f=>`<span class="fchip" data-f="${f}">${f}</span>`).join('');
+
+function matchMat(m){
+  if (q){ const h=(m.name+' '+m.line+' '+m.desc+' '+m.note+' '+m.weight).toLowerCase(); if(!h.includes(q)) return false; }
+  for (const f of active){ if (f==='Natural Fibres') continue; if (m.note!==f && m.weight!==f) return false; }
+  return true;
+}
+function render(){
+  const list = MATERIALS.filter(matchMat);
+  const el = document.getElementById('rows');
+  if (!list.length){ el.innerHTML = `<div class="empty">No materials match those filters. Try widening your search.</div>`; return; }
+  el.innerHTML = list.map(m=>`
+    <a class="mrow" href="collections.html">
+      <span class="sw"><span class="tex ${m.tone}"></span></span>
+      <div class="mc"><h3>${m.name}</h3><div class="ln">${m.line}</div><div class="desc">${m.desc}</div>
+        <div class="tags"><span>${m.note}</span><span>${m.weight}</span></div></div>
+      <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>`).join('');
+}
+render();
+document.querySelectorAll('.fchip').forEach(c=>c.addEventListener('click',()=>{ const f=c.dataset.f; if(active.has(f)){active.delete(f);c.classList.remove('on');}else{active.add(f);c.classList.add('on');} render(); }));
+document.getElementById('q').addEventListener('input',e=>{ q=e.target.value.toLowerCase().trim(); render(); });
+(function(){ const u=new URLSearchParams(location.search).get('q'); if(u){ q=u.toLowerCase(); document.getElementById('q').value=u; render(); } })();
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Made to Measure  - Monsieur</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+.mtm { padding: 30px 0 90px; }
+.crumb { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 22px; display: flex; gap: 9px; }
+.crumb a:hover { color: var(--ink-2); } .crumb b { color: var(--ink-2); font-weight: 400; }
+.mtm-head { text-align: center; max-width: 640px; margin: 6px auto 40px; }
+.mtm-head .eyebrow { display: block; margin-bottom: 16px; }
+.mtm-head h1 { font-family: var(--serif); font-weight: 500; font-size: 50px; line-height: 1.02; color: var(--ink); }
+.mtm-head h1 em { font-style: italic; color: var(--bronze); }
+.mtm-head p { font-family: var(--read); font-size: 16px; color: var(--ink-2); margin-top: 14px; line-height: 1.7; }
+
+/* stepper */
+.stepper { display: flex; align-items: center; justify-content: center; gap: 0; max-width: 820px; margin: 0 auto 44px; }
+.step { display: flex; align-items: center; gap: 13px; }
+.step .dot { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; font-family: var(--sans); font-size: 12px; color: var(--muted); transition: all .25s; flex: none; }
+.step .nm { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); transition: color .25s; }
+.step.on .dot { background: var(--dark); border-color: var(--dark); color: var(--on-dark); }
+.step.on .nm { color: var(--ink); }
+.step.done .dot { background: var(--bronze); border-color: var(--bronze); color: var(--ivory); }
+.step .bar { width: 46px; height: 1px; background: var(--line-strong); margin: 0 16px; }
+
+/* body */
+.mtm-body { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+.fig { position: relative; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; border: 1px solid var(--line-soft); background: var(--card); }
+.fig .photo { position: absolute; inset: 0; }
+.fig .cap { position: absolute; left: 24px; bottom: 22px; z-index: 2; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--on-dark); }
+.fig .badge { position: absolute; top: 18px; left: 20px; z-index: 2; font-family: var(--sans); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-dark); }
+
+.mpanel { background: var(--card); border: 1px solid var(--line-soft); border-radius: 4px; padding: 30px 32px; }
+.mpanel .sl { font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.mpanel h3 { font-family: var(--serif); font-size: 30px; font-weight: 600; color: var(--ink); margin-bottom: 22px; }
+.meas { display: grid; gap: 0; }
+.meas .row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 1px solid var(--line-soft); }
+.meas .row:first-child { border-top: none; }
+.meas .row .k { font-family: var(--read); font-size: 15px; color: var(--ink-2); }
+.meas .row .v { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); }
+.mpanel .btn { margin-top: 26px; }
+.mpanel .skip { display: block; text-align: center; font-family: var(--read); font-size: 13px; color: var(--bronze); margin-top: 16px; }
+
+/* option chips for style/fabric/details steps */
+.opt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ocard { border: 1px solid var(--line); border-radius: 3px; padding: 16px; cursor: pointer; transition: all .18s; }
+.ocard:hover { border-color: var(--line-strong); }
+.ocard.on { border-color: var(--dark); background: var(--card-2); }
+.ocard .ot { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); }
+.ocard .od { font-family: var(--read); font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+.fab-row { display: flex; gap: 11px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line-soft); cursor: pointer; }
+.fab-row:first-child { border-top: none; }
+.fab-row .sw { width: 44px; height: 44px; border-radius: 3px; overflow: hidden; position: relative; border: 1px solid var(--line-soft); flex: none; }
+.fab-row .sw .tex { position: absolute; inset: 0; }
+.fab-row .fn { flex: 1; } .fab-row .fn b { font-family: var(--read); font-size: 14.5px; color: var(--ink); display: block; } .fab-row .fn span { font-family: var(--read); font-size: 12px; color: var(--muted); }
+.fab-row .pick { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line-strong); flex: none; display: grid; place-items: center; }
+.fab-row.on .pick { background: var(--dark); border-color: var(--dark); }
+.fab-row.on .pick::after { content:''; width: 7px; height: 7px; border-radius: 50%; background: var(--on-dark); }
+
+@media (max-width: 1080px) { .mtm-body { grid-template-columns: 1fr; } .mtm-head h1 { font-size: 38px; } .step .nm { display: none; } .step .bar { width: 24px; margin: 0 8px; } }
+</style>
+</head>
+<body>
+
+<div id="m-header" data-active="mtm"></div>
+
+<main class="wrap mtm">
+  <div class="crumb"><a href="home.html">Home</a><span>/</span><b>Made to Measure</b></div>
+  <div class="mtm-head">
+    <span class="eyebrow">Made to Measure</span>
+    <h1>Create something <em>uniquely yours.</em></h1>
+    <p>Personalised sizing and details for a perfect, individual fit  - guided by the atelier at every step.</p>
+  </div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <div class="mtm-body">
+    <div class="fig">
+      <div class="photo"></div>
+      <span class="badge">Soul 02  - Double-Breasted</span>
+      <span class="cap" id="figCap">Your silhouette</span>
+    </div>
+    <aside class="mpanel" id="panel"></aside>
+  </div>
+</main>
+
+<div id="m-footer"></div>
+
+<script src="monsieur-data.js"></script>
+<script src="chrome.js"></script>
+<script src="backend-client.js"></script>
+<script>
+let cur = 3; // start on Measurements (matching mock screen 09)
+const styles = [
+  ['Single-Breasted','Two-button, classic stance'],['Double-Breasted','Six-on-two, peak lapel'],
+  ['Soft Tailoring','Natural shoulder, unlined'],['Structured','Roped shoulder, full canvas'],
+];
+let styleChoice = 1, fabricChoice = 0, detailChoice = 0;
+const fabrics = MATERIALS.slice(0,5);
+const details = [['Peak Lapel','Side Vents','Pleated'],['Notch Lapel','Centre Vent','Flat Front']];
+
+function renderStepper(){
+  document.getElementById('stepper').innerHTML = MTM.steps.map((s,i)=>`
+    <div class="step ${i===cur?'on':''} ${i<cur?'done':''}">
+      <span class="dot">${i<cur?'OK':'0'+(i+1)}</span><span class="nm">${s}</span>
+    </div>${i<MTM.steps.length-1?'<span class="bar"></span>':''}`).join('');
+}
+function panelHtml(){
+  const sl = `<div class="sl">Step 0${cur+1} of 0${MTM.steps.length}</div>`;
+  if (cur===0) return sl+`<h3>Style &amp; Silhouette</h3><div class="opt-cards">`+
+    styles.map((s,i)=>`<div class="ocard ${i===styleChoice?'on':''}" data-st="${i}"><div class="ot">${s[0]}</div><div class="od">${s[1]}</div></div>`).join('')+
+    `</div><button class="btn btn-dark btn-block" id="next">Continue</button>`;
+  if (cur===1) return sl+`<h3>Fabric Selection</h3>`+
+    fabrics.map((f,i)=>`<div class="fab-row ${i===fabricChoice?'on':''}" data-fb="${i}"><span class="sw"><span class="tex ${f.tone}"></span></span><div class="fn"><b>${f.name}</b><span>${f.line}</span></div><span class="pick"></span></div>`).join('')+
+    `<button class="btn btn-dark btn-block" id="next">Continue</button>`;
+  if (cur===2) return sl+`<h3>Details</h3><div class="opt-cards">`+
+    details.flat().map((d,i)=>`<div class="ocard ${i===detailChoice?'on':''}" data-dt="${i}"><div class="ot" style="font-size:16px">${d}</div></div>`).join('')+
+    `</div><button class="btn btn-dark btn-block" id="next">Continue</button>`;
+  if (cur===3) return sl+`<h3>Measurements</h3><div class="meas">`+
+    MTM.measurements.map(m=>`<div class="row"><span class="k">${m.k}</span><span class="v">${m.v}</span></div>`).join('')+
+    `</div><button class="btn btn-dark btn-block" id="next">Save &amp; Continue</button><a class="skip" href="#" id="schedule">Schedule a Fitting &rarr;</a>`;
+  return sl+`<h3>Review</h3>
+    <div class="meas">
+      <div class="row"><span class="k">Silhouette</span><span class="v" style="font-size:16px">${styles[styleChoice][0]}</span></div>
+      <div class="row"><span class="k">Fabric</span><span class="v" style="font-size:16px">${fabrics[fabricChoice].name}</span></div>
+      <div class="row"><span class="k">Measurement Profile</span><span class="v" style="font-size:16px">Saved · Summer 2024</span></div>
+      <div class="row"><span class="k">Estimated Atelier Time</span><span class="v" style="font-size:16px">6-8 weeks</span></div>
+    </div>
+    <button class="btn btn-dark btn-block" id="confirm">Confirm &amp; Commission</button>
+    <a class="skip" href="dossier.html">Save to Dossier</a>`;
+}
+function bind(){
+  const next = document.getElementById('next');
+  if (next) next.addEventListener('click', ()=>{ if(cur<MTM.steps.length-1){cur++; render();} });
+  document.querySelectorAll('[data-st]').forEach(c=>c.addEventListener('click',()=>{styleChoice=+c.dataset.st; document.querySelectorAll('[data-st]').forEach(x=>x.classList.toggle('on',+x.dataset.st===styleChoice));}));
+  document.querySelectorAll('[data-fb]').forEach(c=>c.addEventListener('click',()=>{fabricChoice=+c.dataset.fb; document.querySelectorAll('[data-fb]').forEach(x=>x.classList.toggle('on',+x.dataset.fb===fabricChoice));}));
+  document.querySelectorAll('[data-dt]').forEach(c=>c.addEventListener('click',()=>{detailChoice=+c.dataset.dt; document.querySelectorAll('[data-dt]').forEach(x=>x.classList.toggle('on',+x.dataset.dt===detailChoice));}));
+  const sch = document.getElementById('schedule'); if (sch) sch.addEventListener('click',e=>{e.preventDefault(); toast('A client advisor will be in touch to schedule your fitting');});
+  const cf = document.getElementById('confirm'); if (cf) cf.addEventListener('click',()=>{ toast('Commission confirmed - added to your dossier'); setTimeout(()=>location.href='dossier.html',1100); });
+}
+function render(){ renderStepper(); document.getElementById('panel').innerHTML = panelHtml(); document.getElementById('figCap').textContent = MTM.steps[cur]; bind(); }
+render();
+</script>
+</body>
+</html>

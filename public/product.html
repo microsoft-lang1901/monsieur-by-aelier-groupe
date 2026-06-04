@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Product  - Monsieur</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+.pdp { padding: 28px 0 90px; }
+.crumb { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 28px; display: flex; gap: 9px; flex-wrap: wrap; }
+.crumb a:hover { color: var(--ink-2); }
+.crumb .cur { color: var(--bronze); }
+
+.pdp-top { display: grid; grid-template-columns: 88px 1fr 0.82fr; gap: 30px; align-items: start; }
+.rail { display: grid; gap: 12px; }
+.rail .th { aspect-ratio: 3/4; border-radius: 3px; overflow: hidden; border: 1px solid var(--line); cursor: pointer; position: relative; transition: border-color .2s; }
+.rail .th .tx { position: absolute; inset: 0; }
+.rail .th.on { border-color: var(--ink); }
+.stage { position: relative; aspect-ratio: 4/5; border-radius: 4px; overflow: hidden; border: 1px solid var(--line-soft); }
+.stage .tx { position: absolute; inset: 0; }
+.stage .gt { position: absolute; top: 16px; right: 16px; display: flex; gap: 9px; z-index: 2; }
+.stage .gt button { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: rgba(251,246,236,0.8); backdrop-filter: blur(6px); border: 1px solid var(--line-soft); color: var(--ink-2); transition: all .2s; }
+.stage .gt button:hover { color: var(--bronze); }
+.stage .gt button.on { color: var(--bronze); }
+.stage .gt button.on svg { fill: currentColor; }
+.stage .gt svg { width: 17px; height: 17px; }
+
+.summary { padding-left: 8px; }
+.summary .house { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bronze); }
+.summary h1 { font-family: var(--serif); font-weight: 500; font-size: 40px; line-height: 1.04; color: var(--ink); margin: 12px 0 8px; }
+.summary .sub { font-family: var(--read); font-size: 15px; color: var(--muted); }
+.summary .price { font-family: var(--serif); font-size: 28px; font-weight: 600; color: var(--ink); margin: 20px 0 4px; }
+.summary .desc { font-family: var(--read); font-size: 15.5px; line-height: 1.75; color: var(--ink-2); margin: 22px 0; }
+
+.opt-label { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 24px 0 12px; display: flex; justify-content: space-between; }
+.opt-label a { color: var(--bronze); text-transform: none; letter-spacing: 0.02em; font-family: var(--read); font-size: 13px; }
+.sizes { display: flex; gap: 9px; flex-wrap: wrap; }
+.size { min-width: 50px; height: 46px; padding: 0 14px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 3px; font-family: var(--sans); font-size: 13px; color: var(--ink-2); background: var(--card); cursor: pointer; transition: all .18s; }
+.size:hover { border-color: var(--line-strong); }
+.size.on { background: var(--dark); border-color: var(--dark); color: var(--on-dark); }
+.actions { display: grid; gap: 11px; margin-top: 30px; }
+.assure { display: flex; gap: 22px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line-soft); }
+.assure .a { display: flex; gap: 9px; align-items: center; font-family: var(--read); font-size: 12.5px; color: var(--ink-2); }
+.assure .a svg { width: 17px; height: 17px; color: var(--bronze); flex: none; }
+
+/* tabs */
+.tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--line); margin: 64px 0 0; }
+.tab { font-family: var(--sans); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0 0 16px; background: none; border: none; border-bottom: 1.5px solid transparent; margin-bottom: -1px; transition: all .2s; }
+.tab.on { color: var(--ink); border-color: var(--ink); }
+.tab:hover { color: var(--ink); }
+.tab-body { padding: 34px 0; max-width: 760px; }
+.tab-panel { display: none; }
+.tab-panel.on { display: block; }
+.tab-panel p { font-family: var(--read); font-size: 15.5px; line-height: 1.8; color: var(--ink-2); margin-bottom: 14px; }
+.spec-row { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 15px 0; border-top: 1px solid var(--line-soft); }
+.spec-row:first-child { border-top: none; }
+.spec-row .k { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.spec-row .v { font-family: var(--read); font-size: 15px; color: var(--ink); }
+
+.related { margin-top: 80px; }
+.related .rh { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
+.related .rh h3 { font-family: var(--serif); font-weight: 500; font-size: 30px; color: var(--ink); }
+.rel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+
+@media (max-width: 1080px) {
+  .pdp-top { grid-template-columns: 1fr; }
+  .rail { grid-auto-flow: column; grid-template-columns: repeat(5, 1fr); }
+  .rel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div id="m-header" data-active="collections"></div>
+
+<main class="wrap pdp">
+  <div class="crumb" id="crumb"></div>
+  <section class="pdp-top">
+    <div class="rail" id="rail"></div>
+    <div class="stage">
+      <div class="tx" id="stage"></div>
+      <div class="gt">
+        <button id="zoom" aria-label="Zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3M11 8v6M8 11h6"/></svg></button>
+        <button id="fav" aria-label="Save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg></button>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="house" id="house"></div>
+      <h1 id="name"></h1>
+      <div class="sub" id="sub"></div>
+      <div class="price" id="price"></div>
+      <p class="desc" id="desc"></p>
+      <div class="opt-label"><span>Size</span><a href="made-to-measure.html">Made to Measure &rarr;</a></div>
+      <div class="sizes" id="sizes"></div>
+      <div class="actions">
+        <button class="btn btn-dark btn-block" id="addWard">Add to Wardrobe</button>
+        <a class="btn btn-ghost btn-block" href="made-to-measure.html">Personalise &amp; Made to Measure</a>
+      </div>
+      <div class="assure">
+        <span class="a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c3 3 6 4 6 4v5c0 4-3 7-6 9-3-2-6-5-6-9V7s3-1 6-4Z"/></svg> Verified provenance</span>
+        <span class="a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h10"/></svg> Complimentary shipping</span>
+      </div>
+      <a href="passport.html" class="linkarrow bronze" style="margin-top:24px;">View Fibre Passport <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="tabs">
+      <button class="tab on" data-t="description">Description</button>
+      <button class="tab" data-t="details">Details</button>
+      <button class="tab" data-t="care">Care</button>
+      <button class="tab" data-t="delivery">Delivery</button>
+    </div>
+    <div class="tab-body">
+      <div class="tab-panel on" id="t-description"></div>
+      <div class="tab-panel" id="t-details"></div>
+      <div class="tab-panel" id="t-care">
+        <p>Specialist dry clean only. Store on a shaped hanger, allowing the garment to rest between wears. Steam rather than press to refresh the cloth.</p>
+        <p>Cared for properly, this is a piece made to be worn for years  - and to improve with each of them.</p>
+      </div>
+      <div class="tab-panel" id="t-delivery">
+        <p>Complimentary insured delivery worldwide, dispatched within two business days. Each order arrives in Monsieur's signature presentation, accompanied by its Fibre Passport.</p>
+        <p>Returns and exchanges are complimentary within 30 days. Made to Measure pieces are crafted to order and final sale.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="related">
+    <div class="rh"><h3>Complete the expression</h3><a href="collections.html" class="linkarrow">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+    <div class="rel-grid" id="rel"></div>
+  </section>
+</main>
+
+<div id="m-footer"></div>
+
+<script src="monsieur-data.js"></script>
+<script src="chrome.js"></script>
+<script src="backend-client.js"></script>
+<script>
+const TONES = ['t-cashmere','t-camel','t-navy','t-charcoal','t-stone','t-ivory','t-linen','t-wool','t-merino','t-silk','t-brown','t-black'];
+const id = new URLSearchParams(location.search).get('id');
+const g = findGarment(id);
+const isDark = t => t.includes('navy')||t.includes('black')||t.includes('charcoal')||t.includes('brown')||t.includes('olive');
+const cls = t => (isDark(t)?'photo ':'tex ') + t;
+
+document.title = g.name + '  - Monsieur';
+document.getElementById('crumb').innerHTML = `<a href="home.html">Home</a><span>/</span><a href="collections.html">Collections</a><span>/</span><a href="collections.html">${g.cat}</a><span>/</span><span class="cur">${g.name}</span>`;
+
+const gallery = g.editorial ? g.editorial : [g.tone, ...TONES.filter(t=>t!==g.tone)].slice(0,5).map(t => ({ tone:t }));
+document.getElementById('rail').innerHTML = gallery.map((item,i)=> item.src
+  ? `<div class="th has-editorial ${i===0?'on':''}" data-img="${item.src}" data-label="${item.label}"><img class="editorial-img" src="${item.src}" alt="${g.name} ${item.label}" /></div>`
+  : `<div class="th ${i===0?'on':''}" data-t="${item.tone}"><div class="tx ${cls(item.tone)}"></div></div>`
+).join('');
+function setStageEditorial(item){
+  const box = document.querySelector('.stage');
+  box.classList.remove('has-board'); box.classList.add('has-editorial');
+  document.getElementById('stage').className = '';
+  document.getElementById('stage').innerHTML = `<img class="editorial-img" src="${item.src}" alt="${g.name} ${item.label}" />`;
+}
+function setStageTone(tone){
+  document.querySelector('.stage').classList.remove('has-board','has-editorial');
+  document.getElementById('stage').innerHTML='';
+  document.getElementById('stage').className = 'tx ' + cls(tone);
+}
+if (g.editorial) setStageEditorial(g.editorial[0]);
+else if (g.board) {
+  const stageBox = document.querySelector('.stage');
+  stageBox.classList.add('has-board');
+  document.getElementById('stage').className = '';
+  document.getElementById('stage').innerHTML = `<img class="board-img" src="${g.board}" alt="${g.name} product board" />`;
+} else setStageTone(g.tone);
+document.querySelectorAll('.rail .th').forEach(th => th.addEventListener('click', () => {
+  document.querySelectorAll('.rail .th').forEach(x=>x.classList.remove('on')); th.classList.add('on');
+  if (th.dataset.img) setStageEditorial({ src:th.dataset.img, label:th.dataset.label || 'Editorial View' });
+  else setStageTone(th.dataset.t);
+}));
+
+document.getElementById('house').textContent = g.house;
+document.getElementById('name').textContent = g.name;
+document.getElementById('sub').textContent = g.material + ' · ' + g.color;
+document.getElementById('price').textContent = fmtPrice(g.price);
+document.getElementById('desc').textContent = g.desc;
+if (g.board) {
+  document.querySelector('.summary .assure').insertAdjacentHTML('afterend', `<a href="${g.board}" target="_blank" class="pdp-board-link">Open full product board</a>`);
+}
+
+const sizes = g.cat==='Shirts' ? ['37','38','39','40','41','42'] : g.cat==='Knitwear' ? ['XS','S','M','L','XL'] : ['46','48','50','52','54','56'];
+let chosen = sizes[Math.floor(sizes.length/2)];
+document.getElementById('sizes').innerHTML = sizes.map(s=>`<button class="size ${s===chosen?'on':''}" data-s="${s}">${s}</button>`).join('');
+document.querySelectorAll('.size').forEach(b => b.addEventListener('click', () => { chosen=b.dataset.s; document.querySelectorAll('.size').forEach(x=>x.classList.toggle('on',x.dataset.s===chosen)); }));
+
+/* wardrobe */
+const fav = document.getElementById('fav');
+if (MN.inWard(g.id)) fav.classList.add('on');
+function addWard(){ MN.addWard(g); fav.classList.add('on'); }
+document.getElementById('addWard').addEventListener('click', addWard);
+fav.addEventListener('click', () => { if(MN.inWard(g.id)){ MN.removeWard(g.id); fav.classList.remove('on'); toast('Removed from wardrobe'); } else addWard(); });
+document.getElementById('zoom').addEventListener('click', ()=>toast('Pinch to zoom on mobile · full imagery in atelier'));
+
+/* tabs */
+document.getElementById('t-description').innerHTML = `<p>${g.desc}</p><p>Crafted in ${g.origin}, this piece is fully finished by hand and made to be lived in  - quietly luxurious, never loud.</p>`;
+document.getElementById('t-details').innerHTML = [
+  ['Composition', g.composition], ['Material', g.material], ['Colour', g.color],
+  ['Fit', g.fit], ['Season', g.season], ['Origin', g.origin], ['House Line', g.house]
+].map(([k,v])=>`<div class="spec-row"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on')); t.classList.add('on');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('t-'+t.dataset.t).classList.add('on');
+}));
+
+/* related */
+const rel = GARMENTS.filter(x=>x.id!==g.id && (x.cat===g.cat || x.house===g.house)).concat(GARMENTS.filter(x=>x.id!==g.id)).slice(0,4);
+const seen = new Set(); const relU = rel.filter(x=>!seen.has(x.id)&&seen.add(x.id)).slice(0,4);
+document.getElementById('rel').innerHTML = relU.map(x=>`
+  <a class="gcard" href="product.html?id=${x.id}">
+    <div class="ph ${x.editorial?'has-editorial':x.board?'has-board':''}">${x.editorial?`<img class="editorial-img" src="${x.editorial[0].src}" alt="${x.name} ${x.editorial[0].label}" loading="lazy" />`:x.board?`<img class="board-img" src="${x.board}" alt="${x.name} product board" loading="lazy" />`:`<div class="${cls(x.tone)}"></div>`}${x.tagline?`<span class="tagline">${x.tagline}</span>`:''}</div>
+    <div class="gb"><div class="house">${x.house}</div><h4>${x.name}</h4><div class="meta">${x.material}</div><div class="price">${fmtPrice(x.price)}</div></div>
+  </a>`).join('');
+</script>
+</body>
+</html>

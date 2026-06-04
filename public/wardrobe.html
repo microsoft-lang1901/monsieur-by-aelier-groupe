@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wardrobe Archive  - Monsieur</title>
+<link rel="stylesheet" href="monsieur.css" />
+<style>
+.wbanner { background: var(--paper-2); border-bottom: 1px solid var(--line-soft); }
+.wbanner .wrap { padding: 56px 44px 44px; }
+.crumb { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 22px; display: flex; gap: 9px; }
+.crumb a:hover { color: var(--ink-2); } .crumb b { color: var(--ink-2); font-weight: 400; }
+.wbanner h1 { font-family: var(--serif); font-weight: 500; font-size: 56px; line-height: 1; color: var(--ink); }
+.wbanner p { font-family: var(--read); font-size: 15.5px; color: var(--ink-2); margin-top: 14px; max-width: 540px; line-height: 1.65; }
+
+.sec { padding: 50px 0; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 26px; }
+.sec-head h2 { font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.sec-head .all { font-family: var(--read); font-size: 13px; color: var(--bronze); }
+.wgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+
+.expr { background: var(--paper-2); border-top: 1px solid var(--line-soft); }
+.expr .wrap { padding: 56px 44px 80px; }
+.expr-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 22px; }
+.add-tile { aspect-ratio: 1; border-radius: 3px; overflow: hidden; position: relative; border: 1px solid var(--line); cursor: pointer; transition: transform .3s, box-shadow .3s; }
+.add-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.add-tile .tex, .add-tile .photo, .add-tile .editorial-img { position: absolute; inset: 0; }
+.add-tile .plus { position: absolute; bottom: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: var(--ivory); display: grid; place-items: center; color: var(--ink); z-index: 2; }
+.add-tile .plus svg { width: 14px; height: 14px; }
+
+.empty { text-align: center; padding: 70px 20px; }
+.empty .ico { width: 46px; height: 46px; margin: 0 auto 18px; color: var(--faint); }
+.empty h3 { font-family: var(--serif); font-size: 28px; color: var(--ink); margin-bottom: 10px; }
+.empty p { font-family: var(--read); font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+.rm { position: absolute; top: 13px; left: 13px; z-index: 3; width: 30px; height: 30px; border-radius: 50%; background: rgba(251,246,236,0.85); backdrop-filter: blur(5px); border: 1px solid var(--line-soft); display: grid; place-items: center; color: var(--ink-2); }
+.rm:hover { color: #9a4a3a; } .rm svg { width: 14px; height: 14px; }
+
+@media (max-width: 1080px) { .wgrid { grid-template-columns: repeat(2,1fr); } .expr-row { grid-template-columns: repeat(3,1fr); } .wbanner h1 { font-size: 42px; } }
+</style>
+</head>
+<body>
+
+<div id="m-header" data-active="wardrobe"></div>
+
+<section class="wbanner">
+  <div class="wrap">
+    <div class="crumb"><a href="home.html">Home</a><span>/</span><b>Wardrobe Archive</b></div>
+    <h1>Wardrobe Archive</h1>
+    <p>Your saved pieces. A personal archive of timeless garments and future expressions.</p>
+  </div>
+</section>
+
+<div class="wrap sec">
+  <div class="sec-head"><h2>Saved Pieces</h2><a class="all" href="collections.html">Browse Collection &rarr;</a></div>
+  <div id="saved"></div>
+</div>
+
+<section class="expr">
+  <div class="wrap">
+    <div class="sec-head"><h2>Complete the Expression</h2><a class="all" href="collections.html">View All &rarr;</a></div>
+    <div class="expr-row" id="expr"></div>
+  </div>
+</section>
+
+<div id="m-footer"></div>
+
+<script src="monsieur-data.js"></script>
+<script src="chrome.js"></script>
+<script src="backend-client.js"></script>
+<script>
+const isDark = t => t.includes('navy')||t.includes('black')||t.includes('charcoal')||t.includes('brown')||t.includes('olive');
+const cls = t => (isDark(t)?'photo ':'tex ') + t;
+
+function renderSaved(){
+  const ward = MN.getWard();
+  const el = document.getElementById('saved');
+  if (!ward.length){
+    el.innerHTML = `<div class="empty">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg></span>
+      <h3>Your archive awaits</h3><p>Save pieces from the collection to begin building your personal wardrobe.</p>
+      <a href="collections.html" class="btn btn-dark">Discover the Collection</a></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="wgrid">` + ward.map(w=>`
+    <a class="gcard" href="product.html?id=${w.id}" style="position:relative">
+      <button class="rm" data-rm="${w.id}" aria-label="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14"/></svg></button>
+      <div class="ph ${w.editorial&&w.editorial[0]?'has-editorial':w.board?'has-board':''}">${w.editorial&&w.editorial[0]?`<img class="editorial-img" src="${w.editorial[0].src}" alt="${w.name} ${w.editorial[0].label}" loading="lazy" />`:w.board?`<img class="board-img" src="${w.board}" alt="${w.name} product board" loading="lazy" />`:`<div class="${cls(w.tone)}"></div>`}</div>
+      <div class="gb"><div class="house">${w.house}</div><h4>${w.name}</h4><div class="meta">${w.material}</div><div class="price">${fmtPrice(w.price)}</div></div>
+    </a>`).join('') + `</div>`;
+  el.querySelectorAll('[data-rm]').forEach(b=>b.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); MN.removeWard(b.dataset.rm); toast('Removed from wardrobe'); renderSaved(); }));
+}
+renderSaved();
+
+const exprItems = GARMENTS.slice(2,8);
+document.getElementById('expr').innerHTML = exprItems.map(g=>`
+  <a class="add-tile" href="product.html?id=${g.id}" title="${g.name}">
+    ${g.editorial?`<img class="editorial-img" src="${g.editorial[0].src}" alt="${g.name} ${g.editorial[0].label}" loading="lazy" />`:`<div class="${cls(g.tone)}"></div>`}
+    <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+  </a>`).join('');
+</script>
+</body>
+</html>
