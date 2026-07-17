@@ -81,3 +81,19 @@ The repository includes:
 - `.github/workflows/native-preview.yml` for manual EAS Android/iOS preview builds once `EXPO_TOKEN` is configured.
 
 After the repository is pushed to GitHub, enable Pages with GitHub Actions as the source in repository settings. The native mobile release still requires EAS credentials, Apple Developer, Google Play Console, Supabase, and Stripe production configuration.
+
+
+<!-- portfolio-maintenance-20260717:readme:start -->
+## Repository Documentation
+
+The `2026-07-17` maintenance snapshot records the repository at `5047131afab78e77ab91069ad7e52cd96f8e7b7f` without changing runtime behavior:
+
+- [Project status](docs/PROJECT_STATUS.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Setup](docs/SETUP.md)
+- [Operations](docs/OPERATIONS.md)
+- [Asset manifest](docs/ASSET_MANIFEST.md)
+- [Changelog](CHANGELOG.md)
+
+The canonical catalogue and production environment evidence remain required for a real release.
+<!-- portfolio-maintenance-20260717:readme:end -->
